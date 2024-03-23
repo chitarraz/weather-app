@@ -1,0 +1,27 @@
+.textfieldContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 20px 0;
+  border-radius: 20px;
+}
+
+.textfield {
+  max-width: 700px;
+}
+
+.iconButton {
+  height: 60px;
+  width: 60px;
+  border-radius: 20px;
+  margin-left: 20px;
+}
+
+.iconButton[data-theme='dark'] {
+  background-color: #28124D;
+}
+
+.iconButton[data-theme='light'] {
+  background-color: #6C40B5
+}

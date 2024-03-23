@@ -1,0 +1,42 @@
+.paper {
+  margin-top: 20px;
+  display: flex;
+  border-radius: 16px !important;
+  padding: 10px 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.paper[data-theme='dark'] {
+  background-color: #1A1A1A4D;
+}
+
+.paper[data-theme='light'] {
+  background-color: #FFFFFF33;
+}
+
+.rightContent {
+  display: flex;
+  align-items: center;
+}
+
+.datetime[data-theme='dark'] {
+  opacity: 0.5;
+}
+
+.iconButton {
+  height: 34px;
+  width: 34px;
+  margin-left: 10px !important;
+  border-radius: 50%;
+  border: 2px solid #FFFFFF66;
+}
+
+.iconButton[data-theme='dark'] {
+  background-color: transparent;
+  border: 2px solid #FFFFFF66;
+}
+
+.iconButton[data-theme='light'] {
+  background-color: #FFFFFF
+}
