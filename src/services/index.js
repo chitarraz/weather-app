@@ -1,6 +1,6 @@
 // axios interceptors
 import axios from "axios";
-import { WeatherURL } from "config";
+import { WeatherURL } from "../config/variables";
 
 /**
  * parse error response

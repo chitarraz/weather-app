@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin: 20px 0;
+  margin-bottom: 20px;
   border-radius: 20px;
 }
 
@@ -14,8 +14,8 @@
 .iconButton {
   height: 60px;
   width: 60px;
-  border-radius: 20px;
-  margin-left: 20px;
+  border-radius: 20px !important;
+  margin-left: 20px !important;
 }
 
 .iconButton[data-theme='dark'] {

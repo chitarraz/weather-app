@@ -1,6 +1,8 @@
 .container {
   height: 100vh;
   padding: 20px;
+  overflow: overlay;
+  transition: all 0.4s ease-in-out;
 }
 
 .container[data-theme='light'] {
@@ -11,6 +13,7 @@
   background-image: url('../../images/background/bg-dark.png');
 }
 
-.container[data-theme='dark'] p{
-  color: white;
+.switch {
+  display: flex;
+  justify-content: end;
 }

@@ -1,14 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import {WeatherMS} from "../index";
-import { APIKey } from "../config";
+import {WeatherMS} from ".";
+import { APIKey } from "../config/variables";
 
 // Lookup
 export const GetCoordinatesByLocationName = createAsyncThunk(
-  "weather/getWeatherList", 
-  async (_, {rejectWithValue}) => {
+  "weather/getCoordinatesByLocationName", 
+  async ({searchText}, {rejectWithValue}) => {
     const params = {
-      q: 0,
+      q: searchText,
+      limit: 10,
       appid: APIKey
     };
     try {
@@ -23,10 +24,10 @@ export const GetCoordinatesByLocationName = createAsyncThunk(
 // Weather
 export const GetCurrentWeatherData = createAsyncThunk(
   "weather/getCurrentWeatherData", 
-  async (_, {rejectWithValue}) => {
+  async ({...param}, {rejectWithValue}) => {
     const params = {
-      lat: 0,
-      lon: 0,
+      ...param,
+      units: 'metric',
       appid: APIKey
     };
     try {

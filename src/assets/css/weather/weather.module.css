@@ -4,6 +4,10 @@
   max-width: 700px;
   margin: auto;
   position: relative;
+  margin-top: 40px;
+}
+
+.paperMargin {
   margin-top: 120px;
 }
 
@@ -11,6 +15,12 @@
   border-radius: 20px !important;
   padding: 20px;
   margin: auto;
+}
+
+.listContainer {
+  margin-top: 10px;
+  max-height: 70vh;
+  overflow: overlay;
 }
 
 .paper[data-theme='dark'], .container[data-theme='dark'] {
@@ -46,6 +56,7 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 .description[data-theme='light'] {
@@ -54,4 +65,32 @@
 
 .country {
   font-weight: 700 !important;
+}
+
+.noResult[data-theme='light'] {
+  color: #00000066;
+}
+
+.noResult[data-theme='dark'] {
+  color: #FFFFFF66;
+}
+
+/* mobile css */
+@media screen and (max-width: 400px) {
+  .paperMargin {
+    margin-top: 60px;
+  }
+
+  .weatherImage {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    right: 0;
+    top: -48px;
+  }
+
+  .temperature{
+    font-size: 70px !important;
+    font-weight: 700 !important;
+  }
 }
