@@ -6,14 +6,14 @@ import { APIKey } from "../config/variables";
 // Lookup
 export const GetCoordinatesByLocationName = createAsyncThunk(
   "weather/getCoordinatesByLocationName", 
-  async ({searchText}, {rejectWithValue}) => {
+  async ({signal, searchText}, {rejectWithValue}) => {
     const params = {
       q: searchText,
       limit: 10,
       appid: APIKey
     };
     try {
-      const response = await WeatherMS.get("geo/1.0/direct", {params});
+      const response = await WeatherMS.get("geo/1.0/direct", {params, signal});
       return response.data;
     } catch (error) {
       return rejectWithValue(error);

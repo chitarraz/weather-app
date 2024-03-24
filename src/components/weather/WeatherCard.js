@@ -2,6 +2,7 @@
 import React, {useMemo} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
+import _ from "lodash";
 // @mui/material
 import { useTheme } from '@mui/material/styles';
 import Paper from "@mui/material/Paper";
@@ -14,15 +15,17 @@ import styles from '../../assets/css/weather/weather.module.css';
 import cloud from '../../assets/images/weather/cloud.png';
 import sun from '../../assets/images/weather/sun.png';
 import { GetCurrentWeatherData } from "../../services/WeatherService";
+import { setValues } from "./store";
 
 export default function WeatherPaper() {
   const dispatch = useDispatch();
   const theme = useTheme();
   const currentWeather = useSelector(store => store.weather.currentWeather);
+  const history = useSelector(store => store.weather.history);
+  const [isLoading, setIsLoading] = React.useState(true);
   
   // define constants
-  const history = useMemo(() => JSON.parse(localStorage.getItem("history")) ?? [], []);
-  const display = useMemo(() => history[0] ?? [], [history]);
+  const display = useMemo(() => history[0] ?? {}, [history]);
   const weatherImg = [
     {value: 'Clouds', img: cloud},
     {value: 'Sun', img: sun},
@@ -38,18 +41,32 @@ export default function WeatherPaper() {
   }
 
   React.useEffect(() => {
-    dispatch(GetCurrentWeatherData({lat: display.lat, lon: display.lon}));
-  },[dispatch, display]);
+    if (display.lat && display.lon) {
+      dispatch(GetCurrentWeatherData({lat: display.lat, lon: display.lon}));
+    }
+  },[dispatch, display, history]);
 
+  // componentDidMount
   React.useEffect(() => {
-    history[0] = {...history[0], datetime: moment()}; // update date time
-    localStorage.setItem('history', JSON.stringify(history)); // update local storage
-  },[history]);
+    let payload = JSON.parse(localStorage.getItem("history")) ?? [];
+    if (payload.length) {
+      payload[0] = {...payload[0], datetime: moment()}; // update date time
+    }
+    localStorage.setItem('history', JSON.stringify(payload)); // update local storage
+    dispatch(setValues({history: payload ?? []}));
+    var timer = setTimeout(
+      () => setIsLoading(false), 
+      1000
+    );
+    return () => {
+      clearTimeout(timer);
+    }
+  },[dispatch]);
 
   return (
     <React.Fragment>
       <SearchBar />
-      {currentWeather && display
+      {!_.isEmpty(currentWeather) && !_.isEmpty(display)
       ? <Paper elevation={0} className={[styles.paper, styles.paperMargin]} data-theme={theme.palette.mode}>
           <img src={getWeatherImg()} className={styles.weatherImage} alt='weather'/>
           <Typography>Today's Weather</Typography>
@@ -77,7 +94,7 @@ export default function WeatherPaper() {
           </Paper>
         </Paper>
       : <Paper elevation={0} className={styles.paper} data-theme={theme.palette.mode}>
-          <Typography className={styles.noResult} data-theme={theme.palette.mode}>No results</Typography>
+          <Typography className={styles.noResult} data-theme={theme.palette.mode}>{isLoading ? 'Loading...' : 'No results'}</Typography>
         </Paper>
       }
     </React.Fragment>

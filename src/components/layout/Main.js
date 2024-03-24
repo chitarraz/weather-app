@@ -19,10 +19,6 @@ export default function Main() {
   const colorMode = React.useContext(ColorModeContext);
   const error = useSelector(store => store.general.error);
 
-  // componentDidMount
-  React.useEffect(() => {
-  },[]);
-
   return (
     <React.Fragment>
       <div className={styles.container} data-theme={theme.palette.mode}>

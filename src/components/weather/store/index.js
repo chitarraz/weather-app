@@ -4,6 +4,8 @@ import { GetCoordinatesByLocationName, GetCurrentWeatherData } from "../../../se
 // initial state
 const initialState = {
   currentWeather: {},
+  history: [],
+  searchText: '',
   countryList: [],
 };
 

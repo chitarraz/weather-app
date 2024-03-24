@@ -1,6 +1,8 @@
 // search history item card
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
+import _ from "lodash";
 // @mui/material
 import { useTheme } from '@mui/material/styles';
 import Paper from "@mui/material/Paper";
@@ -12,23 +14,26 @@ import searchLight from '../../assets/icons/light/search.svg';
 import deleteLight from '../../assets/icons/light/delete.svg';
 import searchDark from '../../assets/icons/dark/search.svg';
 import deleteDark from '../../assets/icons/dark/delete.svg';
+import { setValues } from "./store";
 
 export default function ListItem({item, index}) {
+  const dispatch = useDispatch();
   const theme = useTheme();
+  const history = useSelector(store => store.weather.history);
 
   const handleOnSearch = () => {
-    let history = JSON.parse(localStorage.getItem("history")) ?? [];
-    history[index] = {...history[index], datetime: moment()}; // update new date time
-    history.unshift(history.splice(index, 1)[0]); // move to first in array
-    localStorage.setItem('history', JSON.stringify(history));
-    window.location.reload();
+    let payload = _.cloneDeep(history);
+    payload[index] = {...payload[index], datetime: moment()}; // update new date time
+    payload.unshift(payload.splice(index, 1)[0]); // move to first in array
+    localStorage.setItem('history', JSON.stringify(payload));
+    dispatch(setValues({history: payload}));
   };
 
   const handleOnDelete = () => {
-    const history = JSON.parse(localStorage.getItem("history")) ?? [];
-    history.splice(index, 1);
-    localStorage.setItem('history', JSON.stringify(history));
-    window.location.reload();
+    let payload = _.cloneDeep(history);
+    payload.splice(index, 1);
+    localStorage.setItem('history', JSON.stringify(payload));
+    dispatch(setValues({history: payload}));
   };
 
   return (
