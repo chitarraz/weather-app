@@ -23,7 +23,7 @@ export default function ListItem({item, index}) {
 
   const handleOnSearch = () => {
     let payload = _.cloneDeep(history);
-    payload[index] = {...payload[index], datetime: moment()}; // update new date time
+    payload[index] = {...payload[index], datetime: moment().format()}; // update new date time
     payload.unshift(payload.splice(index, 1)[0]); // move to first in array
     localStorage.setItem('history', JSON.stringify(payload));
     dispatch(setValues({history: payload}));

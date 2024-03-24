@@ -13,7 +13,7 @@ export const GetCoordinatesByLocationName = createAsyncThunk(
       appid: APIKey
     };
     try {
-      const response = await WeatherMS.get("geo/1.0/direct", {params, signal});
+      const response = await WeatherMS.get("geo/1.0/direct", {params, signal, noLoading: true});
       return response.data;
     } catch (error) {
       return rejectWithValue(error);

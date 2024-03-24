@@ -7,7 +7,10 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Main from "./components/layout/Main.js";
 
 // import "assets/css/index.css";
+import { interceptor } from "./services";
 import store from "./store";
+
+interceptor(store);
 
 const App = () => {
   const [mode, setMode] = React.useState('light');

@@ -1,6 +1,7 @@
 // axios interceptors
 import axios from "axios";
 import { WeatherURL } from "../config/variables";
+import { setValues } from "../store/general";
 
 /**
  * parse error response
@@ -21,7 +22,7 @@ const parseError = (response) => {
 /**
  * parse response
  */
-const parseBody = (response, store) => {
+const parseBody = (response) => {
   // console.log(response);
   if (response.status === 200) {
     return response;
@@ -44,6 +45,9 @@ export const WeatherMS = axios.create({
 export const interceptor = (store) => {
   // request header
   WeatherMS.interceptors.request.use((config) => {
+    if (!config.noLoading) {
+      store.dispatch(setValues({isLoading: true}));
+    }
     return config;
   }, error => {
     return Promise.reject(error);
@@ -51,8 +55,10 @@ export const interceptor = (store) => {
 
   // response parse
   WeatherMS.interceptors.response.use((response) => {
+    store.dispatch(setValues({isLoading: false}));
     return parseBody(response, store);
   }, error => {
+    store.dispatch(setValues({isLoading: false, error: error.message !== 'canceled' ? "An internal error occurred during your request!" : false}));
     console.warn('Error status', error.response.status);
     // return Promise.reject(error)
     if (error.response) { 

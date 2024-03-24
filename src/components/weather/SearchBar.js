@@ -48,13 +48,13 @@ export default function SearchBar() {
     if (typeof value === 'object') {
       const exists = payload.findIndex((item) => item.country === value.country && item.name === value.name); // get index
       if (exists !== -1) {  // if search alr exists in history
-        payload[exists] = {...payload[exists], datetime: moment()}; // update new date time
+        payload[exists] = {...payload[exists], datetime: moment().format()}; // update new date time
         payload.unshift(payload.splice(exists, 1)[0]); // move to first in array
         localStorage.setItem('history', JSON.stringify(payload));
         dispatch(setWeatherValues({history: payload}));
       } else {
-        localStorage.setItem('history', JSON.stringify([{...value, datetime: moment()}, ...payload]));
-        dispatch(setWeatherValues({history: [{...value, datetime: moment()}, ...payload]}));
+        localStorage.setItem('history', JSON.stringify([{...value, datetime: moment().format()}, ...payload]));
+        dispatch(setWeatherValues({history: [{...value, datetime: moment().format()}, ...payload]}));
 
       }
     } else if (!value) {  // if no value
