@@ -1,0 +1,19 @@
+.container {
+  height: 100vh;
+  padding: 20px;
+  overflow: overlay;
+  transition: all 0.4s ease-in-out;
+}
+
+.container[data-theme='light'] {
+  background-image: url('../../images/background/bg-light.png');
+}
+
+.container[data-theme='dark'] {
+  background-image: url('../../images/background/bg-dark.png');
+}
+
+.switch {
+  display: flex;
+  justify-content: end;
+}
