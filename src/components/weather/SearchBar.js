@@ -33,14 +33,7 @@ export default function SearchBar() {
           handleOnSearch(response.payload[0]);
         }
       });
-    } else if (searchText !== '') {
-      dispatch(GetCoordinatesByLocationName({searchText}))
-      .then((response) => {
-        if (!response.error && response.payload.length) {
-          handleOnSearch(response.payload[0]);
-        }
-      });
-    }
+    } 
   }
 
   const handleOnSearch = (value) => {
@@ -106,7 +99,7 @@ export default function SearchBar() {
             />
           )}
         />
-        <IconButton className={styles.iconButton} aria-label="search" size="small" data-theme={theme.palette.mode} onClick={(e) => handleOnEnter(e)}>
+        <IconButton type="submit" className={styles.iconButton} aria-label="search" size="small" data-theme={theme.palette.mode}>
           <img src={searchIcon} alt="search" className={styles.icon}/>
         </IconButton>
       </form>
