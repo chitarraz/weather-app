@@ -30,7 +30,7 @@ export default function WeatherPaper() {
   const display = useMemo(() => history[0] ?? {}, [history]);
   const weatherImg = [
     {value: 'Clouds', img: cloud},
-    {value: 'Sun', img: sun},
+    {value: 'Clear', img: sun},
   ];
 
   const getWeatherImg = () => {
@@ -73,9 +73,11 @@ export default function WeatherPaper() {
             <Typography>H: {currentWeather.main && currentWeather.main.temp_max.toFixed(1)}° L: {currentWeather.main && currentWeather.main.temp_min.toFixed(1)}°</Typography>
             <div className={styles.description} data-theme={theme.palette.mode}>
               <Typography className={styles.country}>{display.name + ', ' + display.country}</Typography>
-              <Typography>{moment().format('DD-MM-YYYY hh:mm a')}</Typography>
-              <Typography>Humidity: {currentWeather.main && currentWeather.main.humidity}%</Typography>
-              <Typography>{currentWeather.weather && [0] && currentWeather.weather[0].main}</Typography>
+              <div className={styles.subDescription}>
+                <Typography>{moment().format('DD-MM-YYYY hh:mm a')}</Typography>
+                <Typography>Humidity: {currentWeather.main && currentWeather.main.humidity}%</Typography>
+                <Typography>{currentWeather.weather && [0] && currentWeather.weather[0].main}</Typography>
+              </div>
             </div>
             <Paper elevation={0} className={styles.container} data-theme={theme.palette.mode}>
               <Typography>Search History</Typography>

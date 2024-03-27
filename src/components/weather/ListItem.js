@@ -40,9 +40,11 @@ export default function ListItem({item, index}) {
     <React.Fragment>
       {item 
       ? <Paper elevation={0} className={styles.paper} data-theme={theme.palette.mode}>
-          <Typography>{item.name + ', ' + item.country}</Typography>
-          <div className={styles.rightContent}>
+          <div className={styles.description}>
+            <Typography>{item.name + ', ' + item.country}</Typography>
             <Typography className={styles.datetime} data-theme={theme.palette.mode}>{moment(item.datetime).format("DD-MM-YYYY hh:mm a")}</Typography>
+          </div>
+          <div className={styles.rightContent}>
             <IconButton className={styles.iconButton} aria-label="search" size="small" data-theme={theme.palette.mode} onClick={handleOnSearch}>
               <img src={theme.palette.mode==='dark' ? searchDark : searchLight} alt="search" className={styles.icon}/>
             </IconButton>
